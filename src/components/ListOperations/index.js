@@ -18,7 +18,7 @@ export default function ListOperations({ operations }) {
                   <p className="font-weight-lighter my-0">{op.date}</p>
                 </div>
                 <div>
-                  <p className={styles.amount_list}>{op.amount}</p>
+                  <p className={styles.amount_list}>$ {op.amount}</p>
                 </div>
               </div>
             </li>
