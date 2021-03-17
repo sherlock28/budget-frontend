@@ -29,7 +29,7 @@ export function useOperations() {
 
 function convertDate(date) {
   const f = new Date(date);
-  return `${f.getDay()}/${f.getMonth()}/${f.getFullYear()}`;
+  return `${f.getDate()}/${f.getMonth() + 1}/${f.getFullYear()}`;
 }
 
 function convertTypeOperation(type_id) {
