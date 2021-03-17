@@ -19,7 +19,6 @@ export default function Home() {
             <Balance balance={balance} />
           </div>
           <div className="col-md-5">
-            <h3 className="text-center mb-3">Últimas operaciones</h3>
             <ListOperations operations={operations} />
           </div>
         </div>
