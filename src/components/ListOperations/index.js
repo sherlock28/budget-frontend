@@ -1,4 +1,5 @@
 import React from "react";
+import { formatMoney } from "accounting-js";
 import styles from "./LIstOperations.module.css";
 
 export default function ListOperations({ operations }) {
@@ -20,7 +21,7 @@ export default function ListOperations({ operations }) {
                     <p className="font-weight-lighter my-0">{op.date}</p>
                   </div>
                   <div>
-                    <p className={styles.amount_list}>$ {op.amount}</p>
+                    <p className={styles.amount_list}>{formatMoney(op.amount, "€", 2, ".", ",")}</p>
                   </div>
                 </div>
               </li>

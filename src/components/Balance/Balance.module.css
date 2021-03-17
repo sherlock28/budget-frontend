@@ -12,3 +12,9 @@
     margin-bottom: 2rem;
     padding: .5rem;
 }
+
+@media (max-width: 500px) {
+    .balance_number {
+        font-size: 3rem;
+    }
+}

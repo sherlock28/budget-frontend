@@ -15,10 +15,10 @@ export default function Home() {
       <div className="container">
         <h1 className={styles.App_title}>Presupuesto personal</h1>
         <div className="row d-flex justify-content-around">
-          <div className="col-md-5">
+          <div className="col-lg-5">
             <Balance balance={balance} />
           </div>
-          <div className="col-md-5">
+          <div className="col-lg-5">
             <ListOperations operations={operations} />
           </div>
         </div>
