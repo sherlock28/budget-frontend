@@ -1,17 +1,15 @@
 import { useState, useEffect } from "react";
+import getBalance from "services/getBalance";
 
 export function useBalance(operations) {
   const [balance, setBalance] = useState(0);
 
   useEffect(() => {
-    let subBalance = 0;
 
-    operations.forEach(op => {
-      op.type === "Ingreso"
-        ? (subBalance += op.amount)
-        : (subBalance -= op.amount);
+    getBalance().then(balance => {
+      setBalance(balance);
     });
-    setBalance(subBalance);
+
   }, [operations]);
 
   return [balance];
