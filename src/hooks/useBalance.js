@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import getBalance from "services/getBalance";
 
-export function useBalance(operations) {
+export function useBalance() {
   const [balance, setBalance] = useState(0);
 
   useEffect(() => {
@@ -10,7 +10,7 @@ export function useBalance(operations) {
       setBalance(balance);
     });
 
-  }, [operations]);
+  }, []);
 
   return [balance];
 }

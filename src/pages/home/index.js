@@ -8,7 +8,7 @@ import ListOperations from "components/ListOperations";
 
 export default function Home() {
   const [operations] = useOperations();
-  const [balance] = useBalance(operations);
+  const [balance] = useBalance();
 
   return (
     <>
