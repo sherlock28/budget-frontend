@@ -15,7 +15,7 @@ export function useOperations() {
           type_operation_id,
         } = operation;
 
-        const formatedDate = convertDate(date_registered);
+        const formatedDate = formatDate(date_registered);
         const formatedType = convertTypeOperation(type_operation_id);
 
         return { id, concept, amount, date: formatedDate, type: formatedType };
@@ -24,13 +24,21 @@ export function useOperations() {
     });
   }, []);
 
-  return [operations];
+  return [operations, setOperations];
 }
 
-function convertDate(date) {
-  const f = new Date(date);
-  return `${f.getDate()}/${f.getMonth() + 1}/${f.getFullYear()}`;
+function formatDate(date) {
+  var d = new Date(date),
+    month = "" + (d.getMonth() + 1),
+    day = "" + d.getDate(),
+    year = d.getFullYear();
+
+  if (month.length < 2) month = "0" + month;
+  if (day.length < 2) day = "0" + day;
+
+  return [year, month, day].join("-");
 }
+
 
 function convertTypeOperation(type_id) {
   const formatedType = type_id === 1 ? "Ingreso" : "Egreso";

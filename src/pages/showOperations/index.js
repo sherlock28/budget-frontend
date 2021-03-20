@@ -1,49 +1,47 @@
-import React from "react";
-import styles from "./ShowOperations.module.css";
-import { formatMoney } from "accounting-js";
+import React, { useState } from "react";
+import { useLocation } from "wouter";
 import { useOperations } from "hooks/useOperations";
+import ListOperationsEdit from "components/OperationsEdit";
 
 export default function ShowOperations() {
-  const [operations] = useOperations();
+  // eslint-disable-next-line
+  const [operations, setOperations] = useOperations();
+  // eslint-disable-next-line
+  const [path, pushLocation] = useLocation();
+
+  // eslint-disable-next-line
+  const [amount, setAmount] = useState(0);
+  // eslint-disable-next-line
+  const [concept, setConcept] = useState("");
+  // eslint-disable-next-line
+  const [date, setDate] = useState("");
+
+  // eslint-disable-next-line
+  const handleChange = e => {
+    const { name, value } = e.target;
+    if (name === "amount") setAmount(value);
+    if (name === "concept") setConcept(value);
+    if (name === "date_registered") setDate(value);
+  };
+
+  const handleEdit = id => {
+    // eslint-disable-next-line
+    const op = operations.filter(op => op.id === id);
+    setAmount(op[0].amount);
+    setConcept(op[0].concept);
+    setDate(op[0].date)
+  };
 
   return (
     <>
-      <h3 className="text-center mt-5 mb-3">Operaciones</h3>
-      <div className="container">
-        <div className="row d-flex justify-content-center">
-          <div className="col-md-6">
-            <ul className="list-group">
-              {operations.map(op => {
-                return (
-                  <li
-                    key={op.id}
-                    className="list-group-item list-group-item-action py-2"
-                  >
-                    <div className="d-flex flex-row justify-content-between">
-                      <div className="d-flex flex-column">
-                        <p className="font-weight-lighter my-0">{op.date}</p>
-                        <p className="font-weight-normal my-0">{op.type}</p>
-                        <p className="font-weight-bolder my-0">{op.concept}</p>
-                        <p className={styles.amount_list}>
-                          {formatMoney(op.amount, "€", 2, ".", ",")}
-                        </p>
-                      </div>
-                      <div>
-                        <button className="btn btn-primary mr-1">
-                          <i className="fas fa-edit"></i>
-                        </button>
-                        <button className="btn btn-danger ml-1">
-                          <i className="fas fa-trash-alt"></i>
-                        </button>
-                      </div>
-                    </div>
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
-        </div>
-      </div>
+      <ListOperationsEdit
+        operations={operations}
+        handleChange={handleChange}
+        handleEdit={handleEdit}
+        amount={amount}
+        concept={concept}
+        date={date}
+      />
     </>
   );
 }
