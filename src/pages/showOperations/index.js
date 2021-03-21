@@ -1,14 +1,11 @@
 import React, { useState } from "react";
-import { useLocation } from "wouter";
 import { useOperations } from "hooks/useOperations";
 import ListOperationsEdit from "components/OperationsEdit";
-// import updateOperation from "services/updateOperation";
+import updateOperation from "services/updateOperation";
+import getOperations from "services/getOperations";
 
 export default function ShowOperations() {
-  // eslint-disable-next-line
   const [operations, setOperations] = useOperations();
-  // eslint-disable-next-line
-  const [path, pushLocation] = useLocation();
 
   const [id, setId] = useState(null);
   const [amount, setAmount] = useState(0);
@@ -31,14 +28,12 @@ export default function ShowOperations() {
   };
 
   const handleSubmit = () => {
-    console.log(id, amount, concept, date)
-
-    // updateOperation({ id, concept, amount, date_registered: date })
-    // .then(res => {
-    //   const {id, amount, type_operation} = res;
-    //   console.log(id, amount, type_operation)
-    //   // updateBalance().then()
-    // });
+    updateOperation({ id, concept, amount, date_registered: date })
+    .then(res => {
+      getOperations().then(op => {
+          setOperations(op);
+        });
+      });
   };
 
   return (

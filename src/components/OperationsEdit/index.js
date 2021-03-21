@@ -25,7 +25,7 @@ export default function ListOperationsEdit({
       <h3 className="text-center mt-5 mb-3">Operaciones</h3>
       <div className="container">
         <div className="row d-flex justify-content-center">
-          <div className="col-md-6">
+          <div className="col-md-8">
             <ul className="list-group">
               {operations.map(op => {
                 return (
