@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useLocation } from "wouter";
 import saveOperations from "services/saveOperation";
-import updateBalance from "services/updateBalance";
 
 export default function AddOperation() {
   // eslint-disable-next-line
@@ -30,10 +29,7 @@ export default function AddOperation() {
       date_registered: date,
       type_operation: typeOperation,
     };
-    saveOperations(data).then(res => {
-      const data = { id: 1, amount, type_operation: typeOperation };
-      updateBalance(data).then(res => pushLocation("/"));
-    });
+    saveOperations(data).then(res => pushLocation("/"));
   };
 
   return (

@@ -7,6 +7,7 @@ export default function ListOperationsEdit({
   operations,
   handleChange,
   handleEdit,
+  handleSubmit,
   amount,
   concept,
   date,
@@ -15,6 +16,7 @@ export default function ListOperationsEdit({
     <>
       <ModalEdit
         handleChange={handleChange}
+        handleSubmit={handleSubmit}
         amount={amount}
         concept={concept}
         date={date}
