@@ -2,12 +2,15 @@ import React from "react";
 import styles from "./ListOperationsEdit.module.css";
 import { formatMoney } from "accounting-js";
 import ModalEdit from "components/ModalEdit";
+import ModalDelete from "components/ModalDelete";
 
 export default function ListOperationsEdit({
   operations,
   handleChange,
   handleEdit,
-  handleSubmit,
+  handleDelete,
+  handleSubmitEdit,
+  handleSubmitDelete,
   amount,
   concept,
   date,
@@ -16,11 +19,13 @@ export default function ListOperationsEdit({
     <>
       <ModalEdit
         handleChange={handleChange}
-        handleSubmit={handleSubmit}
+        handleSubmitEdit={handleSubmitEdit}
         amount={amount}
         concept={concept}
         date={date}
       />
+
+      <ModalDelete handleSubmitDelete={handleSubmitDelete} />
 
       <h3 className="text-center mt-5 mb-3">Operaciones</h3>
       <div className="container">
@@ -52,7 +57,13 @@ export default function ListOperationsEdit({
                         >
                           <i className="fas fa-edit"></i>
                         </button>
-                        <button className="btn btn-danger ml-1">
+                        <button
+                          onClick={() => handleDelete(op.id)}
+                          className="btn btn-danger ml-1"
+                          type="button"
+                          data-toggle="modal"
+                          data-target="#exampleModal"
+                        >
                           <i className="fas fa-trash-alt"></i>
                         </button>
                       </div>

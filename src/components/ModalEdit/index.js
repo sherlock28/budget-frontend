@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function ModalEdit({ handleChange, handleSubmit, amount, concept, date }) {
+export default function ModalEdit({ handleChange, handleSubmitEdit, amount, concept, date }) {
 
   return (
     <>
@@ -83,7 +83,7 @@ export default function ModalEdit({ handleChange, handleSubmit, amount, concept,
                 Cerrar
               </button>
               <button
-                onClick={handleSubmit}
+                onClick={handleSubmitEdit}
                 type="button"
                 className="btn btn-primary"
                 data-dismiss="modal"

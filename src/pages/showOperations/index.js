@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useOperations } from "hooks/useOperations";
 import ListOperationsEdit from "components/OperationsEdit";
 import updateOperation from "services/updateOperation";
+import deleteOperation from "services/deleteOperation";
 import getOperations from "services/getOperations";
 
 export default function ShowOperations() {
@@ -19,6 +20,16 @@ export default function ShowOperations() {
     if (name === "date_registered") setDate(value);
   };
 
+  const handleDelete = id => {
+    setId(id);
+  };
+
+  const handleSubmitDelete = () => {
+    deleteOperation({ id }).then(res =>
+      getOperations().then(op => setOperations(op))
+    );
+  };
+
   const handleEdit = id => {
     const op = operations.filter(op => op.id === id);
     setId(op[0].id);
@@ -27,13 +38,14 @@ export default function ShowOperations() {
     setDate(op[0].date);
   };
 
-  const handleSubmit = () => {
-    updateOperation({ id, concept, amount, date_registered: date })
-    .then(res => {
-      getOperations().then(op => {
+  const handleSubmitEdit = () => {
+    updateOperation({ id, concept, amount, date_registered: date }).then(
+      res => {
+        getOperations().then(op => {
           setOperations(op);
         });
-      });
+      }
+    );
   };
 
   return (
@@ -42,7 +54,9 @@ export default function ShowOperations() {
         operations={operations}
         handleChange={handleChange}
         handleEdit={handleEdit}
-        handleSubmit={handleSubmit}
+        handleSubmitEdit={handleSubmitEdit}
+        handleDelete={handleDelete}
+        handleSubmitDelete={handleSubmitDelete}
         amount={amount}
         concept={concept}
         date={date}
