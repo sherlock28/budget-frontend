@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useLocation } from "wouter";
 import saveOperations from "services/saveOperation";
+import styles from "./AddOperation.module.css";
 
 export default function AddOperation() {
   // eslint-disable-next-line
@@ -45,11 +46,11 @@ export default function AddOperation() {
                 <input
                   onChange={handleChange}
                   name="amount"
-                  className="form-control"
+                  className={`${styles.font_size_custom} form-control`}
                   placeholder="$ Monto..."
                   data-toggle="tooltip"
                   data-placement="top"
-                  title="Ingresa el monto de la oparación."
+                  title="Ingresa el monto de la operación."
                   required
                 />
               </div>
@@ -58,11 +59,11 @@ export default function AddOperation() {
                 <input
                   onChange={handleChange}
                   name="concept"
-                  className="form-control"
+                  className={`${styles.font_size_custom} form-control`}
                   placeholder="Concepto..."
                   data-toggle="tooltip"
                   data-placement="top"
-                  title="Ingresa el concepto de la oparación."
+                  title="Ingresa el concepto de la operación."
                   required
                 />
               </div>
@@ -74,10 +75,10 @@ export default function AddOperation() {
                   name="date_registered"
                   max="3000-12-31"
                   min="1900-01-01"
-                  className="form-control"
+                  className={`${styles.font_size_custom} form-control`}
                   data-toggle="tooltip"
                   data-placement="top"
-                  title="Selecciona la fecha de la oparación."
+                  title="Selecciona la fecha de la operación."
                   required
                 />
               </div>
@@ -86,13 +87,14 @@ export default function AddOperation() {
                 <select
                   onChange={handleChange}
                   name="type_operation"
-                  className="custom-select"
+                  className={`${styles.font_size_custom} custom-select`}
                   data-toggle="tooltip"
                   data-placement="top"
-                  title="Selecciona el tipo de la oparación."
+                  title="Selecciona el tipo de la operación."
                 >
-                  <option defaultValue>Tipo de operación...</option>
-                  <option value="Egreso">Egreso</option>
+                  <option defaultValue value="Egreso">
+                    Egreso
+                  </option>
                   <option value="Ingreso">Ingreso</option>
                 </select>
               </div>
