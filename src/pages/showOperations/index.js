@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import { useOperations } from "hooks/useOperations";
 import ListOperationsEdit from "components/OperationsEdit";
+import FilterByTypeOperation from "components/FilterByTypeOperation";
 import updateOperation from "services/updateOperation";
 import deleteOperation from "services/deleteOperation";
 import getOperations from "services/getOperations";
 import getOperationsByType from "services/getOperationByType";
-
-import styles from "./ShowOperations.module.css";
 
 export default function ShowOperations() {
   const [operations, setOperations] = useOperations();
@@ -26,10 +25,16 @@ export default function ShowOperations() {
 
   const handleChangeSelect = e => {
     const { value } = e.target;
-    getOperationsByType({ typeOperation: value }).then(operations => {
-      setOperations(operations);
-      setTypeOperation(value);
-    });
+    if (value !== "Todos") {
+      getOperationsByType({ typeOperation: value }).then(operations => {
+        setOperations(operations);
+        setTypeOperation(value);
+      });
+    } else {
+      getOperations().then(op => {
+        setOperations(op);
+      });
+    }
   };
 
   const handleDelete = id => {
@@ -62,25 +67,10 @@ export default function ShowOperations() {
 
   return (
     <>
-      <h3 className="text-center mt-5 mb-1">Filtrar por tipo de operación</h3>
-      <div className="container">
-        <div className="row d-flex justify-content-center">
-          <div className="col-md-8">
-            <div className="input-group mb-1">
-              <select
-                onChange={handleChangeSelect}
-                className={`${styles.select} custom-select`}
-                name="type_operation"
-                value={typeOperation}
-              >
-                <option defaultValue>Todos</option>
-                <option value="Ingreso">Ingreso</option>
-                <option value="Egreso">Egreso</option>
-              </select>
-            </div>
-          </div>
-        </div>
-      </div>
+      <FilterByTypeOperation
+        typeOperation={typeOperation}
+        handleChangeSelect={handleChangeSelect}
+      />
 
       <ListOperationsEdit
         operations={operations}
