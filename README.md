@@ -1,5 +1,15 @@
-# API Personal Budget - Frontend 2021
+# Challenge Javascript para [Alkemy](https://www.alkemy.org/)
+# API Personal Budget - Frontend 2021  
 
-Esta aplicación construida con ReactJS 17 y corresponde al front-end de la API REST budget-backend.
+Aplicación construida con ReactJS 17 para el challenge javacript de Alkemy.
 
+## Instalación
 
+_Primero debe crear el archivo .env.local en la raiz del proyecto con la siguiente variable de entorno:_
+
+- REACT_APP_API_URL = http://localhost:4000/api
+
+_Por ultimo, ejecutar el comando npm install para instalar las dependencias y a continuacion npm start para iniciar el servidor de desarrollo._
+
+- `npm install`
+- `npm start`

@@ -1,5 +1,7 @@
 import { API_URL } from "services/settings";
 
+/* Funcion que permite registrar en la base 
+    de datos una operacion */
 export default function saveOperation({
   concept,
   amount,

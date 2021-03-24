@@ -1,6 +1,8 @@
 import { API_URL } from "services/settings";
 import { formatOperations } from "libs/libs";
 
+/* Funcion que permite obtener las 
+    operaciones de acuerdo a su tipo */
 export default function getOperationsByType({ typeOperation }) {
   if (typeOperation === "Ingreso") {
     return fetch(`${API_URL}/operations/entries`)

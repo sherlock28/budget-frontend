@@ -7,6 +7,9 @@ import ShowOperations from 'pages/showOperations';
 import { Route, Switch } from "wouter";
 import "./App.css";
 
+/* Este el componente principal, donde se declara el navbar
+    que sera comun a todas las paginas, las rutas disponibles 
+    y la pagina que se mostrara por cada ruta*/
 function App() {
   return (
     <>

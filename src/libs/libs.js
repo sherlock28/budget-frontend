@@ -1,3 +1,5 @@
+/* Funcion que formatea una fecha obtenida desde la 
+    db con el formato yyyy-mm-dd */
 const formatDate = date => {
   var d = new Date(date),
     month = "" + (d.getMonth() + 1),
@@ -10,11 +12,14 @@ const formatDate = date => {
   return [year, month, day].join("-");
 };
 
+/* Funcion que calcula la descripcion del tipo de 
+    operacion de acuerdo a su id */
 const convertTypeOperation = type_id => {
   const formatedType = type_id === 1 ? "Ingreso" : "Egreso";
   return formatedType;
 };
 
+/* Funcion que devuelve un array con las operaciones formateadas */
 export const formatOperations = operations => {
   return operations.map(operation => {
     const {
@@ -25,7 +30,9 @@ export const formatOperations = operations => {
       type_operation_id,
     } = operation;
 
+    /* Se formatea la fecha */
     const formatedDate = formatDate(date_registered);
+    /* Se formatea el tipo de operacion */
     const formatedType = convertTypeOperation(type_operation_id);
 
     return { id, concept, amount, date: formatedDate, type: formatedType };

@@ -1,16 +1,29 @@
 import React, { useState } from "react";
-import { useLocation } from "wouter";
-import saveOperations from "services/saveOperation";
 import styles from "./AddOperation.module.css";
 
+/* ------- HOOKS ------- */
+import { useLocation } from "wouter";
+
+/* ------- SERVICES ------- */
+import saveOperations from "services/saveOperation";
+
+/* Esta es la pagina AddOperations la cual muestra un formulario 
+    que permite registrar nuevas operaciones*/
 export default function AddOperation() {
+  /* Hook que permite redireccionar a la Home despues 
+      de agregar una nueva operacion */
   // eslint-disable-next-line
   const [path, pushLocation] = useLocation();
+
+  /* Se crean los estados que representan los campos 
+      en el formulario para registrar las operaciones */
   const [amount, setAmount] = useState(0);
   const [concept, setConcept] = useState("");
   const [date, setDate] = useState("");
   const [typeOperation, setTypeOperation] = useState("");
 
+  /* Funcion que carga en los estados los valores obtenidos de 
+      los campos del formulario */
   const handleChange = e => {
     const { name, value } = e.target;
     name === "amount"
@@ -22,6 +35,7 @@ export default function AddOperation() {
       : setTypeOperation(value);
   };
 
+  /* Funcion que llamar al servicio para guardar una operacion */
   const handleSubmit = e => {
     e.preventDefault();
     const data = {
