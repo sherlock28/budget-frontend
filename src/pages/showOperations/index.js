@@ -56,6 +56,7 @@ export default function ShowOperations() {
     } else {
       getOperations().then(op => {
         setOperations(op);
+        setTypeOperation(value);
       });
     }
   };
