@@ -20,7 +20,7 @@ export default function AddOperation() {
   const [amount, setAmount] = useState(0);
   const [concept, setConcept] = useState("");
   const [date, setDate] = useState("");
-  const [typeOperation, setTypeOperation] = useState("");
+  const [typeOperation, setTypeOperation] = useState("Egreso");
 
   /* Funcion que carga en los estados los valores obtenidos de 
       los campos del formulario */
