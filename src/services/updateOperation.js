@@ -7,14 +7,16 @@ export default function updateOperation({
   concept,
   amount,
   date_registered,
+  jwt,
 }) {
   const data = { concept, amount, date_registered };
-  
+
   return fetch(`${API_URL}/operations/${id}`, {
     method: "PUT",
     body: JSON.stringify(data),
     headers: {
       "Content-Type": "application/json",
+      authorization: jwt,
     },
   })
     .then(res => res.json())

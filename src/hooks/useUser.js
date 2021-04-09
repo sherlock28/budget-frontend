@@ -33,5 +33,6 @@ export function useUser() {
     hasLoginError: state.error,
     message: state.message,
     isLogged: Boolean(jwt),
+    jwt
   };
 }

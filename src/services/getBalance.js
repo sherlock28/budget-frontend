@@ -5,8 +5,14 @@ import { API_URL } from "services/settings";
     para un solo usuario, eventualmente agregando un registro 
     y logueo de usuarios, el id del balance corresponderia al 
     del balance del usuario logueado*/
-export default function getBalance() {
-  return fetch(`${API_URL}/balances/${1}`)
+export default function getBalance({ jwt }) {
+  return fetch(`${API_URL}/balances/${1}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      authorization: jwt,
+    },
+  })
     .then(res => res.json())
     .then(resBalance => {
       const { last_balance } = resBalance.data.balance;

@@ -3,6 +3,7 @@ import styles from "./AddOperation.module.css";
 
 /* ------- HOOKS ------- */
 import { useLocation } from "wouter";
+import { useUser } from "hooks/useUser";
 
 /* ------- SERVICES ------- */
 import saveOperations from "services/saveOperation";
@@ -14,6 +15,8 @@ export default function AddOperation() {
       de agregar una nueva operacion */
   // eslint-disable-next-line
   const [path, pushLocation] = useLocation();
+
+  const { jwt } = useUser();
 
   /* Se crean los estados que representan los campos 
       en el formulario para registrar las operaciones */
@@ -43,6 +46,7 @@ export default function AddOperation() {
       concept,
       date_registered: date,
       type_operation: typeOperation,
+      jwt
     };
     saveOperations(data).then(res => pushLocation("/"));
   };

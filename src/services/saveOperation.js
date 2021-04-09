@@ -7,6 +7,7 @@ export default function saveOperation({
   amount,
   date_registered,
   type_operation,
+  jwt,
 }) {
   const data = { concept, amount, date_registered, type_operation };
 
@@ -15,6 +16,7 @@ export default function saveOperation({
     body: JSON.stringify(data),
     headers: {
       "Content-Type": "application/json",
+      authorization: jwt,
     },
   });
 }

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 /* ------- HOOKS ------- */
 import { useOperations } from "hooks/useOperations";
+import { useUser } from "hooks/useUser";
 
 /* ------- COMPONENTS ------- */
 import ListOperationsEdit from "components/OperationsEdit";
@@ -16,6 +17,7 @@ import getOperationsByType from "services/getOperationByType";
 /* Esta es la pagina ShowOperations la cual se divide en dos 
     componentes <FilterByTypeOperation/> y <ListOperationsEdit/>*/
 export default function ShowOperations() {
+  const { jwt } = useUser();
 
   /* Se obtiene las operaciones usando el hook useOperations() */
   const [operations, setOperations] = useOperations();
@@ -25,11 +27,11 @@ export default function ShowOperations() {
   const [amount, setAmount] = useState(0);
   const [concept, setConcept] = useState("");
   const [date, setDate] = useState("");
-  
+
   /* Estado que representa el id de la operacion que fue 
-      seleccionada para editar o para eliminar */    
+      seleccionada para editar o para eliminar */
   const [id, setId] = useState(null);
-  
+
   /* Estado que representa el filtro de tipo de 
       operacion seleccionado */
   const [typeOperation, setTypeOperation] = useState("Todos");
@@ -49,12 +51,12 @@ export default function ShowOperations() {
   const handleChangeSelect = e => {
     const { value } = e.target;
     if (value !== "Todos") {
-      getOperationsByType({ typeOperation: value }).then(operations => {
+      getOperationsByType({ typeOperation: value, jwt }).then(operations => {
         setOperations(operations);
         setTypeOperation(value);
       });
     } else {
-      getOperations().then(op => {
+      getOperations({ jwt }).then(op => {
         setOperations(op);
         setTypeOperation(value);
       });
@@ -70,8 +72,8 @@ export default function ShowOperations() {
   /* Funcion que llamar al servicio para borrar una operacion 
       cuando se confirma la decision */
   const handleSubmitDelete = () => {
-    deleteOperation({ id }).then(res =>
-      getOperations().then(op => setOperations(op))
+    deleteOperation({ id, jwt }).then(res =>
+      getOperations({ jwt }).then(op => setOperations(op))
     );
   };
 
@@ -87,9 +89,9 @@ export default function ShowOperations() {
 
   /* Funcion que llamar al servicio para actualizar una operacion */
   const handleSubmitEdit = () => {
-    updateOperation({ id, concept, amount, date_registered: date }).then(
+    updateOperation({ id, concept, amount, date_registered: date, jwt }).then(
       res => {
-        getOperations().then(op => {
+        getOperations({ jwt }).then(op => {
           setOperations(op);
         });
       }

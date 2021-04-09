@@ -3,16 +3,28 @@ import { formatOperations } from "libs/libs";
 
 /* Funcion que permite obtener las 
     operaciones de acuerdo a su tipo */
-export default function getOperationsByType({ typeOperation }) {
+export default function getOperationsByType({ typeOperation, jwt }) {
   if (typeOperation === "Ingreso") {
-    return fetch(`${API_URL}/operations/entries`)
+    return fetch(`${API_URL}/operations/entries`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: jwt,
+      },
+    })
       .then(res => res.json())
       .then(resJSON => {
         const { operations } = resJSON.data;
         return formatOperations(operations);
       });
   } else {
-    return fetch(`${API_URL}/operations/outputs`)
+    return fetch(`${API_URL}/operations/outputs`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: jwt,
+      },
+    })
       .then(res => res.json())
       .then(resJSON => {
         const { operations } = resJSON.data;
