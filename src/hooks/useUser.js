@@ -4,5 +4,6 @@ import UserContext from "context/UserContext";
 export function useUser() {
   const { jwt, setJwt } = useContext(UserContext);
 
-  const login = useCallback(({ email, password }) => {}, [jwt, setJwt]);
+  const signIn = useCallback(({ email, password }) => {}, [jwt, setJwt]);
+  const signOut = useCallback(() => {}, [setJwt]);
 }
