@@ -1,15 +1,27 @@
 import { API_URL } from "./settings";
 
-export function signIn({ email, password }) {
+export default function signIn({ email, password }) {
+  let isLoggedOk = false;
+  let resStatus = 0;
+  let jwt = "";
+
   return fetch(`${API_URL}/users/signin`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ email, password }),
-  }).then(res => {
-    if (!res.ok) throw new Error("Response is NOT ok");
-    console.log(res.headers);
-    return res.json();
-  });
+  })
+    .then(response => {
+      resStatus = response.status;
+      jwt = response.headers.get("authorization");
+      return response.json();
+    })
+    .then(res => {
+      resStatus === 500 || resStatus === 400
+        ? (isLoggedOk = false)
+        : (isLoggedOk = true);
+
+      return { message: res.message, isLoggedOk, jwt };
+    });
 }

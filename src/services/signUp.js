@@ -1,6 +1,6 @@
 import { API_URL } from "./settings";
 
-export default function signIn({ email, password, confirmpass }) {
+export default function signUp({ email, password, confirmpass }) {
   let resStatus = 0;
   let isResgisteredOk = false;
 
