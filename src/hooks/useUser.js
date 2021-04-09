@@ -1,13 +1,23 @@
-import { useCallback, useContext, useState, useEffect } from "react";
+import { useCallback, useContext, useState } from "react";
 import UserContext from "context/UserContext";
 import signInService from "services/signIn";
 /* ------- LIBS ------- */
-import { getUserFromToken } from 'libs/libs';
+import { getUserFromToken } from "libs/libs";
 
 export function useUser() {
-  const { jwt, setJwt } = useContext(UserContext);
-  const [state, setState] = useState({ loading: false, error: false, message: null });
-  const [user, setUser] = useState({id: undefined, email: null});
+
+  const {
+    jwt,
+    setJwt,
+    userId,
+    setUserId
+  } = useContext(UserContext);
+
+  const [state, setState] = useState({
+    loading: false,
+    error: false,
+    message: null,
+  });
 
   const signIn = useCallback(
     ({ email, password }) => {
@@ -15,6 +25,10 @@ export function useUser() {
       signInService({ email, password })
         .then(res => {
           window.sessionStorage.setItem("jwt", res.jwt);
+          const jwtDecode = getUserFromToken(res.jwt);
+          window.sessionStorage.setItem("user_id", jwtDecode.user_id);
+          setUserId(jwtDecode.user_id);
+          window.sessionStorage.setItem("email", jwtDecode.email);
           setState({ loading: false, error: false, message: res.message });
           setJwt(res.jwt);
         })
@@ -24,16 +38,11 @@ export function useUser() {
           console.error(err);
         });
     },
+    // eslint-disable-next-line
     [setJwt]
   );
 
   const signOut = useCallback(() => {}, []);
-
-  // useEffect(() => {
-  //   const jwtDecode = getUserFromToken(jwt);
-  //   setUser({id: jwtDecode.id, email: jwtDecode.email});
-  //   console.log(user)
-  // }, [jwt])
 
   return {
     signIn,
@@ -42,6 +51,7 @@ export function useUser() {
     hasLoginError: state.error,
     message: state.message,
     isLogged: Boolean(jwt),
-    jwt
+    jwt,
+    userId,
   };
 }

@@ -2,18 +2,22 @@ import React from "react";
 
 /* ------- HOOKS ------- */
 import { Link } from "wouter";
-import { useUser } from 'hooks/useUser';
+import { useUser } from "hooks/useUser";
+
+/* ------- LIBS ------- */
+import { getUserFromToken } from 'libs/libs';
 
 export default function Navbar() {
-
-  // eslint-disable-next-line
-  const { isLogged } = useUser();
+  
+  const { isLogged, jwt } = useUser();
 
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
         <div className="container">
-          <p className="navbar-brand"></p>
+          <Link className="navbar-brand" to="/home">
+            App
+          </Link>
           <button
             className="navbar-toggler"
             type="button"
@@ -28,23 +32,42 @@ export default function Navbar() {
 
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav mr-auto">
-              <li className="nav-item active">
-                <Link to="/home" className="nav-link">
-                  Home
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link to="/agregar" className="nav-link">
-                  Agregar operación
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link to="/operaciones" className="nav-link">
-                  Operaciones
-                </Link>
-              </li>
+              {!isLogged && (
+                <>
+                  <li className="nav-item active">
+                    <Link to="/" className="nav-link">
+                      Registrarse
+                    </Link>
+                  </li>
+                  <li className="nav-item active">
+                    <Link to="/login" className="nav-link">
+                      Iniciar sesión
+                    </Link>
+                  </li>
+                </>
+              )}
+              {isLogged && (
+                <>
+                  <li className="nav-item active">
+                    <Link to="/home" className="nav-link">
+                      Home
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link to="/agregar" className="nav-link">
+                      Agregar operación
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link to="/operaciones" className="nav-link">
+                      Operaciones
+                    </Link>
+                  </li>
+                </>
+              )}
             </ul>
-            <div className="nav-item dropdown">
+            {isLogged && (
+              <div className="nav-item dropdown">
                 <div
                   className="nav-link dropdown-toggle px-0 text-secondary"
                   id="navbarDropdown"
@@ -53,21 +76,15 @@ export default function Navbar() {
                   aria-haspopup="true"
                   aria-expanded="false"
                 >
-                  Email
+                  {getUserFromToken(jwt).email}
                 </div>
                 <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <Link className="dropdown-item" to="/">
-                    Registrarse
-                  </Link>
-                  <Link className="dropdown-item" to="/login">
-                    Iniciar sesión
-                  </Link>
-                  <div className="dropdown-divider"></div>
                   <Link className="dropdown-item" href="/end">
                     Cerrar sesión
                   </Link>
                 </div>
               </div>
+            )}
           </div>
         </div>
       </nav>
