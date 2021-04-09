@@ -2,8 +2,10 @@ import styles from "./Home.module.css";
 import React from "react";
 
 /* ------- HOOKS ------- */
+import { useLocation } from "wouter";
 import { useOperations } from "hooks/useOperations";
 import { useBalance } from "hooks/useBalance";
+import { useUser } from "hooks/useUser";
 
 /* ------- COMPONENTS ------- */
 import Balance from "components/Balance";
@@ -12,10 +14,16 @@ import ListOperations from "components/ListOperations";
 /* Esta es la pagina Home la cual se divide en dos 
     componentes prncipales, <Balance/> y >ListOperations/> */
 export default function Home() {
+  // eslint-disable-next-line
+  const [_, pushLocation] = useLocation();
+  const { isLogged } = useUser();
+
   /* Se obtiene las oparaciones y el balance usando los 
       hooks useOperations() y useBalance() */
   const [operations] = useOperations();
   const [balance] = useBalance();
+
+  if (!isLogged) pushLocation("/login");
 
   return (
     <>

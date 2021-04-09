@@ -13,7 +13,7 @@ export default function SignIn() {
 
   useEffect(() => {
     if(isLogged) {
-      pushLocation("/")
+      pushLocation("/home")
     }
   }, [isLogged, pushLocation])
 

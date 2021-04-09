@@ -3,6 +3,7 @@ import React, { useState } from "react";
 /* ------- HOOKS ------- */
 import { useOperations } from "hooks/useOperations";
 import { useUser } from "hooks/useUser";
+import { useLocation } from 'wouter';
 
 /* ------- COMPONENTS ------- */
 import ListOperationsEdit from "components/OperationsEdit";
@@ -17,7 +18,9 @@ import getOperationsByType from "services/getOperationByType";
 /* Esta es la pagina ShowOperations la cual se divide en dos 
     componentes <FilterByTypeOperation/> y <ListOperationsEdit/>*/
 export default function ShowOperations() {
-  const { jwt } = useUser();
+  // eslint-disable-next-line
+  const [_, pushLocation] = useLocation();
+  const { jwt, isLogged } = useUser();
 
   /* Se obtiene las operaciones usando el hook useOperations() */
   const [operations, setOperations] = useOperations();
@@ -51,15 +54,19 @@ export default function ShowOperations() {
   const handleChangeSelect = e => {
     const { value } = e.target;
     if (value !== "Todos") {
-      getOperationsByType({ typeOperation: value, jwt }).then(operations => {
-        setOperations(operations);
-        setTypeOperation(value);
-      });
+      if (isLogged) {
+        getOperationsByType({ typeOperation: value, jwt }).then(operations => {
+          setOperations(operations);
+          setTypeOperation(value);
+        });
+      }
     } else {
-      getOperations({ jwt }).then(op => {
-        setOperations(op);
-        setTypeOperation(value);
-      });
+      if (isLogged) {
+        getOperations({ jwt }).then(op => {
+          setOperations(op);
+          setTypeOperation(value);
+        });
+      }
     }
   };
 
@@ -72,9 +79,11 @@ export default function ShowOperations() {
   /* Funcion que llamar al servicio para borrar una operacion 
       cuando se confirma la decision */
   const handleSubmitDelete = () => {
-    deleteOperation({ id, jwt }).then(res =>
-      getOperations({ jwt }).then(op => setOperations(op))
-    );
+    if (isLogged) {
+      deleteOperation({ id, jwt }).then(res =>
+        getOperations({ jwt }).then(op => setOperations(op))
+      );
+    }
   };
 
   /* Funcion que permite cargar los campos del formulario de 
@@ -89,14 +98,18 @@ export default function ShowOperations() {
 
   /* Funcion que llamar al servicio para actualizar una operacion */
   const handleSubmitEdit = () => {
-    updateOperation({ id, concept, amount, date_registered: date, jwt }).then(
-      res => {
-        getOperations({ jwt }).then(op => {
-          setOperations(op);
-        });
-      }
-    );
+    if (isLogged) {
+      updateOperation({ id, concept, amount, date_registered: date, jwt }).then(
+        res => {
+          getOperations({ jwt }).then(op => {
+            setOperations(op);
+          });
+        }
+      );
+    }
   };
+
+  if(!isLogged) pushLocation('/login');
 
   return (
     <>

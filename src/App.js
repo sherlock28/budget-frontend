@@ -19,10 +19,10 @@ function App() {
     <UserContextProvider>
       <Navbar />
       <Switch>
-        <Route path="/" component={Home} exact />
+        <Route path="/" component={SignUp} exact />
+        <Route path="/home" component={Home} exact />
         <Route path="/agregar" component={AddOperations} exact />
         <Route path="/operaciones" component={ShowOperations} exact />
-        <Route path="/registro" component={SignUp} exact />
         <Route path="/login" component={SignIn} exact />
       </Switch>
     </UserContextProvider>

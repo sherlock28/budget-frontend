@@ -38,3 +38,16 @@ export const formatOperations = operations => {
     return { id, concept, amount, date: formatedDate, type: formatedType };
   });
 };
+
+/* Funcion que devuelve el token decodificado y permite que se 
+    obtengan sus datos */
+export const getUserFromToken = token => {
+  if (token) {
+    try {
+      return JSON.parse(atob(token.split('.')[1]));
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  return null;
+};

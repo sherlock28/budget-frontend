@@ -8,15 +8,19 @@ import { useUser } from "hooks/useUser";
 /* ------- SERVICES ------- */
 import saveOperations from "services/saveOperation";
 
+/* ------- LIBS ------- */
+// eslint-disable-next-line
+import { getUserFromToken } from "libs/libs";
+
 /* Esta es la pagina AddOperations la cual muestra un formulario 
     que permite registrar nuevas operaciones*/
 export default function AddOperation() {
   /* Hook que permite redireccionar a la Home despues 
       de agregar una nueva operacion */
   // eslint-disable-next-line
-  const [path, pushLocation] = useLocation();
+  const [_, pushLocation] = useLocation();
 
-  const { jwt } = useUser();
+  const { jwt, isLogged } = useUser();
 
   /* Se crean los estados que representan los campos 
       en el formulario para registrar las operaciones */
@@ -46,10 +50,12 @@ export default function AddOperation() {
       concept,
       date_registered: date,
       type_operation: typeOperation,
-      jwt
+      jwt,
     };
     saveOperations(data).then(res => pushLocation("/"));
   };
+
+  if(!isLogged) pushLocation('/login');
 
   return (
     <div className="row d-flex justify-content-center mt-5 mx-0">
