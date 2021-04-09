@@ -6,6 +6,9 @@ import { API_URL } from "services/settings";
     y logueo de usuarios, el id del balance corresponderia al 
     del balance del usuario logueado*/
 export default function getBalance({ jwt }) {
+
+  const balanceInZero = 0;
+
   return fetch(`${API_URL}/balances/${1}`, {
     method: "GET",
     headers: {
@@ -15,7 +18,11 @@ export default function getBalance({ jwt }) {
   })
     .then(res => res.json())
     .then(resBalance => {
-      const { last_balance } = resBalance.data.balance;
-      return last_balance;
+      if(resBalance.data.balance.length === 0) {
+        return balanceInZero;
+      } else {
+        const { last_balance } = resBalance.data.balance[0];
+        return last_balance;
+      }
     });
 }
