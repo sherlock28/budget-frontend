@@ -1,6 +1,9 @@
 import { API_URL } from "./settings";
 
 export default function signIn({ email, password, confirmpass }) {
+  let resStatus = 0;
+  let isResgisteredOk = false;
+
   return fetch(`${API_URL}/users/signup`, {
     method: "POST",
     headers: {
@@ -8,9 +11,16 @@ export default function signIn({ email, password, confirmpass }) {
     },
     body: JSON.stringify({ email, password, confirmpass }),
   })
-    .then(res => {
-      if (!res.ok) throw new Error("Response is NOT ok");
-      return res.json();
+    .then(response => {
+      resStatus = response.status;
+      return response.json();
     })
-    .then(resJSON => resJSON.message);
+    .then(res => {
+
+      resStatus === 500 || resStatus === 400
+        ? (isResgisteredOk = false)
+        : (isResgisteredOk = true);
+
+      return { message: res.message, isResgisteredOk };
+    });
 }
