@@ -20,7 +20,7 @@ import getOperationsByType from "services/getOperationByType";
 export default function ShowOperations() {
   // eslint-disable-next-line
   const [_, pushLocation] = useLocation();
-  const { jwt, isLogged } = useUser();
+  const { jwt, isLogged, userId } = useUser();
 
   /* Se obtiene las operaciones usando el hook useOperations() */
   const [operations, setOperations] = useOperations();
@@ -55,14 +55,14 @@ export default function ShowOperations() {
     const { value } = e.target;
     if (value !== "Todos") {
       if (isLogged) {
-        getOperationsByType({ typeOperation: value, jwt }).then(operations => {
+        getOperationsByType({ typeOperation: value, jwt, userId }).then(operations => {
           setOperations(operations);
           setTypeOperation(value);
         });
       }
     } else {
       if (isLogged) {
-        getOperations({ jwt }).then(op => {
+        getOperations({ jwt, userId }).then(op => {
           setOperations(op);
           setTypeOperation(value);
         });
@@ -81,7 +81,7 @@ export default function ShowOperations() {
   const handleSubmitDelete = () => {
     if (isLogged) {
       deleteOperation({ id, jwt }).then(res =>
-        getOperations({ jwt }).then(op => setOperations(op))
+        getOperations({ jwt, userId}).then(op => setOperations(op))
       );
     }
   };
@@ -101,7 +101,7 @@ export default function ShowOperations() {
     if (isLogged) {
       updateOperation({ id, concept, amount, date_registered: date, jwt }).then(
         res => {
-          getOperations({ jwt }).then(op => {
+          getOperations({ jwt, userId }).then(op => {
             setOperations(op);
           });
         }

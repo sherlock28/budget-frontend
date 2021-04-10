@@ -5,11 +5,11 @@ import { API_URL } from "services/settings";
     para un solo usuario, eventualmente agregando un registro 
     y logueo de usuarios, el id del balance corresponderia al 
     del balance del usuario logueado*/
-export default function getBalance({ jwt }) {
+export default function getBalance({ jwt, userId}) {
 
   const balanceInZero = 0;
 
-  return fetch(`${API_URL}/balances/${1}`, {
+  return fetch(`${API_URL}/balances/${userId}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",

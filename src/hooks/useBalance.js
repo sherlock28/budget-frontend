@@ -7,15 +7,15 @@ import { useUser } from "hooks/useUser";
     obtiene el balance y lo carga en el estado */
 export function useBalance() {
   const [balance, setBalance] = useState(0);
-  const { jwt, isLogged } = useUser();
+  const { jwt, isLogged, userId } = useUser();
 
   useEffect(() => {
     if (isLogged) {
-      getBalance({ jwt }).then(balance => {
+      getBalance({ jwt, userId }).then(balance => {
         setBalance(balance);
       });
     }
-  }, [jwt, isLogged]);
+  }, [jwt, isLogged, userId]);
 
   /* El hook retorna el balance */
   return [balance];

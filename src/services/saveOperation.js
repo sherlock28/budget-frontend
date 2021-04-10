@@ -8,10 +8,11 @@ export default function saveOperation({
   date_registered,
   type_operation,
   jwt,
+  userId,
 }) {
   const data = { concept, amount, date_registered, type_operation };
 
-  return fetch(`${API_URL}/operations`, {
+  return fetch(`${API_URL}/operations/${userId}`, {
     method: "POST",
     body: JSON.stringify(data),
     headers: {

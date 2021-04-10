@@ -7,15 +7,15 @@ import { useUser } from "hooks/useUser";
     obtiene las operaciones y las carga en el estado */
 export function useOperations() {
   const [operations, setOperations] = useState([]);
-  const { jwt, isLogged } = useUser();
+  const { jwt, isLogged, userId } = useUser();
 
   useEffect(() => {
     if (isLogged) {
-      getOperations({ jwt }).then(resOperations => {
+      getOperations({ jwt, userId }).then(resOperations => {
         setOperations(resOperations);
       });
     }
-  }, [jwt, isLogged]);
+  }, [jwt, isLogged, userId]);
 
   /* El hook retorna el array de operaciones 
       y el metodo para modificar el estado*/

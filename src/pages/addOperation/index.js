@@ -20,7 +20,7 @@ export default function AddOperation() {
   // eslint-disable-next-line
   const [_, pushLocation] = useLocation();
 
-  const { jwt, isLogged } = useUser();
+  const { jwt, isLogged, userId } = useUser();
 
   /* Se crean los estados que representan los campos 
       en el formulario para registrar las operaciones */
@@ -51,6 +51,7 @@ export default function AddOperation() {
       date_registered: date,
       type_operation: typeOperation,
       jwt,
+      userId,
     };
     saveOperations(data).then(res => pushLocation("/"));
   };

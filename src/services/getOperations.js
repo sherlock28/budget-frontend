@@ -3,8 +3,8 @@ import { formatOperations } from "libs/libs";
 
 /* Funcion que permite obtener las ultimas 
     10 operaciones ordenadas por fecha */
-export default function getOperations({jwt}) {
-  return fetch(`${API_URL}/operations`, {
+export default function getOperations({jwt, userId}) {
+  return fetch(`${API_URL}/operations/${userId}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
