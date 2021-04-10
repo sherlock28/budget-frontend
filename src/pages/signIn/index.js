@@ -5,17 +5,23 @@ import { useLocation } from "wouter";
 
 export default function SignIn() {
   // eslint-disable-next-line
-  const { signIn, message, isLoginLoading, hasLoginError, isLogged } = useUser();
+  const {
+    signIn,
+    message,
+    isLoginLoading,
+    hasLoginError,
+    isLogged,
+  } = useUser();
   // eslint-disable-next-line
   const [_, pushLocation] = useLocation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   useEffect(() => {
-    if(isLogged) {
-      pushLocation("/home")
+    if (isLogged) {
+      pushLocation("/home");
     }
-  }, [isLogged, pushLocation])
+  }, [isLogged, pushLocation]);
 
   const handleChange = e => {
     const { name, value } = e.target;
@@ -68,9 +74,15 @@ export default function SignIn() {
                 </div>
               </form>
             </div>
-            {isLoginLoading && <Spinner />}
-            {hasLoginError && <strong>Credenciales invalidas.</strong>}
           </div>
+
+          {isLoginLoading && (
+            <div className="container d-flex justify-content-center mt-4">
+              <Spinner />
+            </div>
+          )}
+
+          {hasLoginError && <strong>Credenciales invalidas.</strong>}
         </div>
       </div>
     </div>
