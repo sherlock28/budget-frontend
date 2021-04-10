@@ -50,7 +50,7 @@ export function useUser() {
         window.sessionStorage.removeItem("email");
       }
     });
-  }, []);
+  }, [setJwt]);
 
   return {
     signIn,

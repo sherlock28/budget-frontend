@@ -7,7 +7,6 @@ export default function SignIn() {
   // eslint-disable-next-line
   const {
     signIn,
-    message,
     isLoginLoading,
     hasLoginError,
     isLogged,
