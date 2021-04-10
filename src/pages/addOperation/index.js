@@ -53,7 +53,7 @@ export default function AddOperation() {
       jwt,
       userId,
     };
-    saveOperations(data).then(res => pushLocation("/"));
+    saveOperations(data).then(res => pushLocation("/home"));
   };
 
   if(!isLogged) pushLocation('/login');

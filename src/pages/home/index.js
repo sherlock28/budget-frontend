@@ -10,6 +10,7 @@ import { useUser } from "hooks/useUser";
 /* ------- COMPONENTS ------- */
 import Balance from "components/Balance";
 import ListOperations from "components/ListOperations";
+import NoOperationsYet from "components/NoOperationsYet";
 
 /* Esta es la pagina Home la cual se divide en dos 
     componentes prncipales, <Balance/> y >ListOperations/> */
@@ -33,9 +34,15 @@ export default function Home() {
           <div className="col-lg-5">
             <Balance balance={balance} />
           </div>
-          <div className="col-lg-5">
-            <ListOperations operations={operations} />
-          </div>
+          {operations.length === 0 ? (
+            <div className="col-lg-5">
+              <NoOperationsYet />
+            </div>
+          ) : (
+            <div className="col-lg-5">
+              <ListOperations operations={operations} />
+            </div>
+          )}
         </div>
       </div>
     </>

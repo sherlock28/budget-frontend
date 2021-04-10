@@ -1,0 +1,11 @@
+.container_card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 2rem;
+    padding: .5rem;
+}
+
+.btn_add_operation {
+    max-width: 3rem;
+}
