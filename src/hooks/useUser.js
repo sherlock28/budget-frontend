@@ -42,7 +42,7 @@ export function useUser() {
   );
 
   const signOut = useCallback(({ jwt }) => {
-    signOut({ jwt }).then(res => {
+    signOutService({ jwt }).then(res => {
       if (res.isLogOutOk) {
         setJwt(null);
         window.sessionStorage.removeItem("jwt");

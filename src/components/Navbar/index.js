@@ -9,7 +9,11 @@ import { getUserFromToken } from 'libs/libs';
 
 export default function Navbar() {
   
-  const { isLogged, jwt } = useUser();
+  const { isLogged, jwt, signOut } = useUser();
+
+  const handleClick = () => {
+    signOut({jwt});
+  }
 
   return (
     <>
@@ -79,9 +83,9 @@ export default function Navbar() {
                   {getUserFromToken(jwt).email}
                 </div>
                 <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <Link className="dropdown-item" href="/end">
+                  <button onClick={handleClick} className="dropdown-item">
                     Cerrar sesión
-                  </Link>
+                  </button>
                 </div>
               </div>
             )}
