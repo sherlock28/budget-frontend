@@ -3,11 +3,12 @@ import React, { useState } from "react";
 /* ------- HOOKS ------- */
 import { useOperations } from "hooks/useOperations";
 import { useUser } from "hooks/useUser";
-import { useLocation } from 'wouter';
+import { useLocation } from "wouter";
 
 /* ------- COMPONENTS ------- */
 import ListOperationsEdit from "components/OperationsEdit";
 import FilterByTypeOperation from "components/FilterByTypeOperation";
+import NoOperationsYet from "components/NoOperationsYet";
 
 /* ------- SERVICES ------- */
 import updateOperation from "services/updateOperation";
@@ -55,10 +56,12 @@ export default function ShowOperations() {
     const { value } = e.target;
     if (value !== "Todos") {
       if (isLogged) {
-        getOperationsByType({ typeOperation: value, jwt, userId }).then(operations => {
-          setOperations(operations);
-          setTypeOperation(value);
-        });
+        getOperationsByType({ typeOperation: value, jwt, userId }).then(
+          operations => {
+            setOperations(operations);
+            setTypeOperation(value);
+          }
+        );
       }
     } else {
       if (isLogged) {
@@ -81,7 +84,7 @@ export default function ShowOperations() {
   const handleSubmitDelete = () => {
     if (isLogged) {
       deleteOperation({ id, jwt }).then(res =>
-        getOperations({ jwt, userId}).then(op => setOperations(op))
+        getOperations({ jwt, userId }).then(op => setOperations(op))
       );
     }
   };
@@ -109,7 +112,7 @@ export default function ShowOperations() {
     }
   };
 
-  if(!isLogged) pushLocation('/login');
+  if (!isLogged) pushLocation("/login");
 
   return (
     <>
@@ -118,17 +121,27 @@ export default function ShowOperations() {
         handleChangeSelect={handleChangeSelect}
       />
 
-      <ListOperationsEdit
-        operations={operations}
-        handleChange={handleChange}
-        handleEdit={handleEdit}
-        handleSubmitEdit={handleSubmitEdit}
-        handleDelete={handleDelete}
-        handleSubmitDelete={handleSubmitDelete}
-        amount={amount}
-        concept={concept}
-        date={date}
-      />
+      <div className="container">
+        <div className="row">
+          {operations.length === 0 ? (
+            <div className="col-md-12">
+              <NoOperationsYet />
+            </div>
+          ) : (
+            <ListOperationsEdit
+              operations={operations}
+              handleChange={handleChange}
+              handleEdit={handleEdit}
+              handleSubmitEdit={handleSubmitEdit}
+              handleDelete={handleDelete}
+              handleSubmitDelete={handleSubmitDelete}
+              amount={amount}
+              concept={concept}
+              date={date}
+            />
+          )}
+        </div>
+      </div>
     </>
   );
 }

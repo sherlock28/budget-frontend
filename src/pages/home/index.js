@@ -36,6 +36,7 @@ export default function Home() {
           </div>
           {operations.length === 0 ? (
             <div className="col-lg-5">
+              <h3 className="text-center mb-3">Últimas operaciones</h3>
               <NoOperationsYet />
             </div>
           ) : (
