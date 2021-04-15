@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import signUpService from "services/signUp";
 import MessageInfo from "components/MessageInfo";
 import MessageError from "components/MessageError";
