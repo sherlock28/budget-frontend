@@ -2,8 +2,14 @@ import React, { useState } from "react";
 import signUpService from "services/signUp";
 import MessageInfo from "components/MessageInfo";
 import MessageError from "components/MessageError";
+import { useLocation } from "wouter";
+import { useUser } from "hooks/useUser";
 
 export default function SignUp() {
+  // eslint-disable-next-line
+  const [_, pushLocation] = useLocation();
+  const { isLogged } = useUser();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmpass, setConfirmPass] = useState("");
@@ -36,6 +42,12 @@ export default function SignUp() {
       setIsSubmitting(false);
     });
   };
+
+  useEffect(() => {
+    if (isLogged) {
+      pushLocation("/home");
+    }
+  }, [isLogged, pushLocation]);
 
   if (registered) {
     return <MessageInfo />;
