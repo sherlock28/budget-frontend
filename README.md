@@ -1,4 +1,3 @@
-# Challenge Javascript para [Alkemy](https://www.alkemy.org/)
 # API Personal Budget - Frontend 2021  
 
 Aplicación construida con ReactJS 17 para el challenge javacript de Alkemy.
