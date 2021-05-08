@@ -1,6 +1,6 @@
 # API Personal Budget - Frontend 2021  
 
-Aplicación construida con ReactJS 17 para el challenge javacript de Alkemy.
+Aplicación construida con ReactJS 17.
 
 ## Instalación
 
