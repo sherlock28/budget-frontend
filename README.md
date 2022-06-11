@@ -14,5 +14,4 @@ _Por ultimo, ejecutar el comando npm install para instalar las dependencias y a 
 - npm start
 ```
 
-
-(https://github.com/sherlock28/budget-backend)[Backend]
+[Backend]: https://github.com/sherlock28/budget-backend
